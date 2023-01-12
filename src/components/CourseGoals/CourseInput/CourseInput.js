@@ -8,16 +8,16 @@ const CourseInput = props => {
   const [isValid, setValid] = useState(true)
 
   const goalInputChangeHandler = event => {
-    setEnteredValue(event.target.value);
+    const value = event.target.value;
+    setValid(value.trim().length > 0);
+    setEnteredValue(value);
   };
 
   const formSubmitHandler = event => {
     event.preventDefault();
-    setValid(enteredValue.trim().length > 0);
-    if (enteredValue.trim().length === 0){
-      return;
+    if (isValid){
+      props.onAddGoal(enteredValue);
     }
-    props.onAddGoal(enteredValue);
   };
 
   const inputStyle = {borderColor: !isValid ? 'red' : 'black', background: !isValid ? 'salmon' : 'transparent'};
